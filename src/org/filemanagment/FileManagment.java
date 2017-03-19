@@ -1,4 +1,4 @@
-package filemanagment;
+package org.filemanagment;
 
 import java.io.File;
 import java.io.IOException;

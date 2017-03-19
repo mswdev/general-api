@@ -1,4 +1,4 @@
-package web;
+package org.web;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -87,5 +87,26 @@ public class Request {
         return false;
     }
 
+    /**
+     * Requests the size of the file from the specified url.
+     *
+     * @param url The url to request file size.
+     * @return The size of the file in bytes.
+     * */
+    public static int requestFileSize(String url) {
+        try {
+            final URL URL = new URL(url);
+            final HttpURLConnection CONNECTION = (HttpURLConnection) URL.openConnection();
+            final int RESPONSE = CONNECTION.getResponseCode();
+            if (RESPONSE != HttpURLConnection.HTTP_OK)
+                return -1;
+
+            return CONNECTION.getContentLength();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
 }
 

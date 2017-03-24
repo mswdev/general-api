@@ -55,7 +55,7 @@ public class FileManagment {
     }
 
     /**
-     * Gets all of the Files in the specified directory.
+     * Gets all of the files in the specified directory.
      *
      * @param directory The directory to get the files from.
      * @return A File array if any files are present; null otherwise.
@@ -70,7 +70,7 @@ public class FileManagment {
     }
 
     /**
-     * Gets all of the Files in the specified directory.
+     * Gets all of the file names in the specified directory.
      *
      * @param directory The directory to get the files from.
      * @return A File array if any files are present; null otherwise.

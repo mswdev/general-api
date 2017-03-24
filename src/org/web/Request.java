@@ -57,9 +57,10 @@ public class Request {
      *
      * @param url  The url in which to download the file.
      * @param path The path in which to save the file.
+     * @param save_name The name of the file. (Make sure to include a seperator between the path and the same name.)
      * @return True if the file was successfully downloaded, false otherwise.
      */
-    public static boolean requestFile(String url, String path) {
+    public static boolean requestFile(String url, String path, String save_name) {
         try {
             final URL URL = new URL(url);
             final HttpURLConnection CONNECTION = (HttpURLConnection) URL.openConnection();
@@ -68,7 +69,7 @@ public class Request {
                 return false;
 
             final InputStream INPUT_STREAM = CONNECTION.getInputStream();
-            final FileOutputStream OUTPUT_STREAM = new FileOutputStream(path);
+            final FileOutputStream OUTPUT_STREAM = new FileOutputStream(path + save_name);
 
             int bytes_read;
             final byte[] BUFFER = new byte[4096];

@@ -1,9 +1,8 @@
 package org.web;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -11,7 +10,7 @@ import java.util.Map;
 /**
  * Created by Sphiinx on 3/16/17.
  */
-public class PostRequest {
+public class Request {
 
     /**
      * Sends a post request to the specified url with the hash map.
@@ -47,6 +46,40 @@ public class PostRequest {
 
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    /**
+     * Requests the file from the specified url and saves it to the specified path.
+     *
+     * @param url  The url in which to download the file.
+     * @param path The path in which to save the file.
+     * @return True if the file was successfully downloaded, false otherwise.
+     */
+    public static boolean requestFile(String url, String path) {
+        try {
+            final URL URL = new URL(url);
+            final HttpURLConnection CONNECTION = (HttpURLConnection) URL.openConnection();
+            final int RESPONSE = CONNECTION.getResponseCode();
+            if (RESPONSE != HttpURLConnection.HTTP_OK)
+                return false;
+
+            final InputStream INPUT_STREAM = CONNECTION.getInputStream();
+            final FileOutputStream OUTPUT_STREAM = new FileOutputStream(path);
+
+            int bytes_read;
+            final byte[] BUFFER = new byte[4096];
+            while ((bytes_read = INPUT_STREAM.read(BUFFER)) != -1)
+                OUTPUT_STREAM.write(BUFFER, 0, bytes_read);
+
+            OUTPUT_STREAM.close();
+            INPUT_STREAM.close();
+            CONNECTION.disconnect();
+            return true;
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

@@ -45,23 +45,26 @@ public class FileManagment {
      * Gets the specified file name is the specified directory.
      *
      * @param file_name The name of the file to get from the directory.
-     * @param directory The directory to get the file from.
+     * @param path The directory to get the file from.
      * @return The specified file if found; null otherwise.
      */
-    public static File getFileInDirectory(String directory, String file_name) {
-        final File file = new File(directory);
+    public static File getFileInDirectory(String path, String file_name) {
+        final File file = new File(path);
         final File[] matching_files = file.listFiles((dir, name) -> name.equals(file_name));
+        if (matching_files == null)
+            return null;
+
         return matching_files.length > 0 ? matching_files[0] : null;
     }
 
     /**
      * Gets all of the files in the specified directory.
      *
-     * @param directory The directory to get the files from.
+     * @param path The directory to get the files from.
      * @return A File array if any files are present; null otherwise.
      */
-    public static File[] getFilesInDirectory(String directory) {
-        final File file = new File(directory);
+    public static File[] getFilesInDirectory(String path) {
+        final File file = new File(path);
         final File[] files = file.listFiles();
         if (files == null)
             return null;
@@ -75,9 +78,9 @@ public class FileManagment {
      * @param directory The directory to get the files from.
      * @return A File array if any files are present; null otherwise.
      */
-    public static String[] getFileNamesInDirectory(String directory) {
+    public static String[] getFileNamesInDirectory(String path) {
         final List<String> file_names = new ArrayList<>();
-        final File[] files = getFilesInDirectory(directory);
+        final File[] files = getFilesInDirectory(path);
         if (files == null)
             return null;
 

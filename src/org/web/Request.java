@@ -82,6 +82,8 @@ public class Request {
             final byte[] BUFFER = new byte[4096];
             while ((bytes_read = INPUT_STREAM.read(BUFFER)) != -1) {
                 bytes_downloaded += bytes_read;
+                Logging.debug("Bytes: " + bytes_downloaded);
+                Logging.debug("Size: " + file_size);
                 Logging.debug("Downloaded: " + bytes_downloaded / file_size + "%");
                 OUTPUT_STREAM.write(BUFFER, 0, bytes_read);
             }

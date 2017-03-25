@@ -64,7 +64,7 @@ public class Request {
      * @return True if the file was successfully downloaded, false otherwise.
      */
     public static boolean requestFile(String url, String path, String save_name) {
-        System.out.println("Size?L " + requestFileSize(url));
+        System.out.println("Size: " + requestFileSize(url));
         try {
             final URL URL = new URL(url);
             final HttpURLConnection CONNECTION = (HttpURLConnection) URL.openConnection();
@@ -78,7 +78,7 @@ public class Request {
             int bytes_read;
             final byte[] BUFFER = new byte[4096];
             while ((bytes_read = INPUT_STREAM.read(BUFFER)) != -1) {
-                System.out.println("Downloaded: " + bytes_read);
+                System.out.println("Input stream: " + INPUT_STREAM.read(BUFFER));
                 OUTPUT_STREAM.write(BUFFER, 0, bytes_read);
             }
 

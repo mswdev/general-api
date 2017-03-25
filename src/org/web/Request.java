@@ -77,14 +77,14 @@ public class Request {
             final FileOutputStream OUTPUT_STREAM = new FileOutputStream(path + save_name);
 
             int bytes_read;
-            int bytes_downloaded = 0;
+            double bytes_downloaded = 0;
             final int file_size = requestFileSize(url);
             final byte[] BUFFER = new byte[4096];
             while ((bytes_read = INPUT_STREAM.read(BUFFER)) != -1) {
                 bytes_downloaded += bytes_read;
-                final int dl = bytes_downloaded / file_size;
+                final double dl = bytes_downloaded / file_size;
                 Logging.debug("dl: " + dl);
-                final int per = dl * 100;
+                final double per = dl * 100;
                 Logging.debug("per: " + per);
                 Logging.debug("Downloaded: " + (bytes_downloaded / file_size) * 100 + "%");
                 OUTPUT_STREAM.write(BUFFER, 0, bytes_read);

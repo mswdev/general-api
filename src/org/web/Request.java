@@ -76,11 +76,14 @@ public class Request {
             final FileOutputStream OUTPUT_STREAM = new FileOutputStream(path + save_name);
 
             int bytes_read;
+            int bytes_downloaded = 0;
             final byte[] BUFFER = new byte[4096];
             while ((bytes_read = INPUT_STREAM.read(BUFFER)) != -1) {
-                System.out.println("Input stream: " + INPUT_STREAM.read(BUFFER));
+                bytes_downloaded += bytes_read;
+                System.out.println("Downloaded: " + bytes_downloaded);
                 OUTPUT_STREAM.write(BUFFER, 0, bytes_read);
             }
+            System.out.println("Totaly downloaded: " + bytes_downloaded);
 
             OUTPUT_STREAM.close();
             INPUT_STREAM.close();

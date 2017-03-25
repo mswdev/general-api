@@ -42,7 +42,7 @@ public class FileManagment {
     }
 
     /**
-     * Gets the specified file name is the specified directory.
+     * Gets the specified file name in the specified directory.
      *
      * @param file_name The name of the file to get from the directory.
      * @param path The directory to get the file from.
@@ -60,7 +60,7 @@ public class FileManagment {
     /**
      * Gets all of the files in the specified directory.
      *
-     * @param path The directory to get the files from.
+     * @param path The path to get the files from.
      * @return A File array if any files are present; null otherwise.
      */
     public static File[] getFilesInDirectory(String path) {
@@ -75,7 +75,7 @@ public class FileManagment {
     /**
      * Gets all of the file names in the specified directory.
      *
-     * @param directory The directory to get the files from.
+     * @param path The path to get the files from.
      * @return A File array if any files are present; null otherwise.
      */
     public static String[] getFileNamesInDirectory(String path) {

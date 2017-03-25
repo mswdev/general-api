@@ -1,5 +1,7 @@
 package org.web;
 
+import org.filemanagment.FileManagment;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -54,6 +56,7 @@ public class Request {
 
     /**
      * Requests the file from the specified url and saves it to the specified path.
+     * Compares the downloaded file size to the url file size to ensure it's fully downloaded.
      *
      * @param url  The url in which to download the file.
      * @param path The path in which to save the file.
@@ -79,7 +82,13 @@ public class Request {
             OUTPUT_STREAM.close();
             INPUT_STREAM.close();
             CONNECTION.disconnect();
-            return true;
+
+            final int FILE_SIZE = requestFileSize(url);
+            final File DOWNLOADED_FILE = FileManagment.getFileInDirectory(path, save_name);
+            if (DOWNLOADED_FILE == null)
+                return false;
+
+            return FILE_SIZE == DOWNLOADED_FILE.length();
         } catch (IOException e) {
             e.printStackTrace();
         }

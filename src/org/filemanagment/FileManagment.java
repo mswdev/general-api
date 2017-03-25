@@ -19,10 +19,7 @@ public class FileManagment {
      */
     public static boolean createDirectory(String path, String name) {
         final File directory = new File(path, name);
-        if (directory.mkdir())
-            return getFileInDirectory(path, name) != null;
-
-        return false;
+        return directory.mkdir();
     }
 
     /**

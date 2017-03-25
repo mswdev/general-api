@@ -84,7 +84,7 @@ public class Request {
                 bytes_downloaded += bytes_read;
                 Logging.debug("Bytes: " + bytes_downloaded);
                 Logging.debug("Size: " + file_size);
-                Logging.debug("Downloaded: " + bytes_downloaded / file_size + "%");
+                Logging.debug("Downloaded: " + (bytes_downloaded / file_size) * 100 + "%");
                 OUTPUT_STREAM.write(BUFFER, 0, bytes_read);
             }
 

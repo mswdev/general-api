@@ -64,7 +64,7 @@ public class Request {
     /**
      * Requests the file from the specified url and saves it to the specified path.
      * Compares the downloaded file size to the url file size to ensure it's fully downloaded.
-     * If the logging debug mode is enabled, it will debug how much of the file is currently downloaded.
+     * If the logging debug mode is enabled, it will debug the downloaded percent of the file in a #.## format.
      *
      * @param url  The url in which to download the file.
      * @param path The path in which to save the file.
@@ -83,12 +83,12 @@ public class Request {
             final FileOutputStream OUTPUT_STREAM = new FileOutputStream(path + save_name);
 
             int bytes_read;
-            double bytes_downloaded = 0;
+            double total_bytes_read = 0;
             final int file_size = requestFileSize(url);
             final byte[] BUFFER = new byte[4096];
             while ((bytes_read = INPUT_STREAM.read(BUFFER)) != -1) {
-                bytes_downloaded += bytes_read;
-                final double percent_downloaded = (bytes_downloaded / file_size) * 100;
+                total_bytes_read += bytes_read;
+                final double percent_downloaded = (total_bytes_read / file_size) * 100;
                 Logging.debug("Downloaded: " + PERCENT_FORMAT.format(percent_downloaded) + "%");
                 OUTPUT_STREAM.write(BUFFER, 0, bytes_read);
             }

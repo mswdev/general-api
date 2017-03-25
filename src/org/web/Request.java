@@ -8,12 +8,18 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.Map;
 
 /**
  * Created by Sphiinx on 3/16/17.
  */
 public class Request {
+
+    /**
+     * The decimal format for the percent downloaded.
+     * */
+    private static final DecimalFormat PERCENT_FORMAT = new DecimalFormat("#.#");
 
     /**
      * Sends a post request to the specified url with the hash map.
@@ -82,11 +88,8 @@ public class Request {
             final byte[] BUFFER = new byte[4096];
             while ((bytes_read = INPUT_STREAM.read(BUFFER)) != -1) {
                 bytes_downloaded += bytes_read;
-                final double dl = bytes_downloaded / file_size;
-                Logging.debug("dl: " + dl);
-                final double per = dl * 100;
-                Logging.debug("per: " + per);
-                Logging.debug("Downloaded: " + (bytes_downloaded / file_size) * 100 + "%");
+                final double percent_downloaded = (bytes_downloaded / file_size) * 100;
+                Logging.debug("Downloaded: " + PERCENT_FORMAT.format(percent_downloaded) + "%");
                 OUTPUT_STREAM.write(BUFFER, 0, bytes_read);
             }
 

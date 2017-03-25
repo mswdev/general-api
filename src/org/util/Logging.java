@@ -6,9 +6,15 @@ package org.util;
 public class Logging {
 
     /**
+     * The master boolean controlling the debug mode.
+     */
+    private static boolean is_debug;
+
+    /**
      * Prints the specified message with the header "ERROR: ".
      *
-     * */
+     * @param message The message in which to print.
+     */
     public static void error(String message) {
         System.out.println("[ERROR]: " + message);
     }
@@ -16,7 +22,8 @@ public class Logging {
     /**
      * Prints the specified message with the header "WARNING: ".
      *
-     * */
+     * @param message The message in which to print.
+     */
     public static void warning(String message) {
         System.out.println("[WARNING]: " + message);
     }
@@ -24,9 +31,41 @@ public class Logging {
     /**
      * Prints the specified message with the header "STATUS: ".
      *
-     * */
+     * @param message The message in which to print.
+     */
     public static void status(String message) {
         System.out.println("[STATUS]: " + message);
+    }
+
+    /**
+     * Prints the specified message with the header "DEBUG: ".
+     * Debug messages will only be printed if the debug boolean is true.
+     *
+     * @param message The message in which to print.
+     */
+    public static void debug(String message) {
+        if (!is_debug)
+            return;
+
+        System.out.println("[DEBUG]: " + message);
+    }
+
+    /**
+     * Sets the debug boolean to the specified value.
+     *
+     * @param set_debug True if we should enable debug mode; false otherwise.
+     */
+    public static void setDebug(boolean set_debug) {
+        is_debug = set_debug;
+    }
+
+    /**
+     * Checks if the debug boolean is true or not.
+     *
+     * @return True if the debug boolean is true; false otherwise.
+     */
+    public static boolean isDebug() {
+        return is_debug;
     }
 
 }

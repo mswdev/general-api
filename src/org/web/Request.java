@@ -1,6 +1,7 @@
 package org.web;
 
 import org.filemanagment.FileManagment;
+import org.util.Logging;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -57,6 +58,7 @@ public class Request {
     /**
      * Requests the file from the specified url and saves it to the specified path.
      * Compares the downloaded file size to the url file size to ensure it's fully downloaded.
+     * If the logging debug mode is enabled, it will debug how much of the file is currently downloaded.
      *
      * @param url  The url in which to download the file.
      * @param path The path in which to save the file.
@@ -64,7 +66,6 @@ public class Request {
      * @return True if the file was successfully downloaded, false otherwise.
      */
     public static boolean requestFile(String url, String path, String save_name) {
-        System.out.println("Size: " + requestFileSize(url));
         try {
             final URL URL = new URL(url);
             final HttpURLConnection CONNECTION = (HttpURLConnection) URL.openConnection();
@@ -77,13 +78,13 @@ public class Request {
 
             int bytes_read;
             int bytes_downloaded = 0;
+            final int file_size = requestFileSize(url);
             final byte[] BUFFER = new byte[4096];
             while ((bytes_read = INPUT_STREAM.read(BUFFER)) != -1) {
                 bytes_downloaded += bytes_read;
-                System.out.println("Downloaded: " + bytes_downloaded);
+                Logging.debug("Downloaded: " + bytes_downloaded / file_size + "%");
                 OUTPUT_STREAM.write(BUFFER, 0, bytes_read);
             }
-            System.out.println("Totaly downloaded: " + bytes_downloaded);
 
             OUTPUT_STREAM.close();
             INPUT_STREAM.close();

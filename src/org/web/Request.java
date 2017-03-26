@@ -80,7 +80,7 @@ public class Request {
                 return false;
 
             final InputStream INPUT_STREAM = CONNECTION.getInputStream();
-            final FileOutputStream OUTPUT_STREAM = new FileOutputStream(path + save_name);
+            final FileOutputStream OUTPUT_STREAM = new FileOutputStream(path + File.separator + save_name);
 
             int bytes_read;
             double total_bytes_read = 0;

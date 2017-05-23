@@ -3,12 +3,14 @@ package org.web;
 import org.filemanagment.FileManagment;
 import org.util.Logging;
 
+import java.awt.*;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+import java.net.*;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -129,6 +131,27 @@ public class Request {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    /**
+     * Opens the specified URI.
+     *
+     * @param uri The URI to open.
+     * @return True if successful; false otherwise.
+     * */
+    public static boolean openURL(String uri) {
+        if (!Desktop.isDesktopSupported())
+            return false;
+
+        final Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.browse(new URI(uri));
+            return true;
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 }

@@ -66,7 +66,7 @@ public class FileManagment {
      * @return The specified directory if found; null otherwise.
      */
     public static File getDirectoryInDirectory(String file_path, String file_name) {
-        return getFileInDirectory(file_path, file_name, null);
+        return getFileInDirectory(file_path, file_name, "");
     }
 
     /**

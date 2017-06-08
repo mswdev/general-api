@@ -105,7 +105,7 @@ public class Request {
             CONNECTION.disconnect();
 
             final int FILE_SIZE = requestFileSize(url);
-            final File DOWNLOADED_FILE = FileManagment.getFileInDirectory(path, save_name);
+            final File DOWNLOADED_FILE = FileManagment.getDirectoryInDirectory(path, save_name);
             if (DOWNLOADED_FILE == null)
                 return false;
 

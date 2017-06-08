@@ -14,11 +14,11 @@ public class FileManagment {
      * Creates a directory at the specified path with the specified name.
      *
      * @param creation_path The path to create the directory.
-     * @param name The name to name the directory.
+     * @param directory_name The name to name the directory.
      * @return True if successful; false otherwise.
      */
-    public static boolean createDirectory(String creation_path, String name) {
-        final File directory = new File(creation_path, name);
+    public static boolean createDirectory(String creation_path, String directory_name) {
+        final File directory = new File(creation_path, directory_name);
         return directory.mkdir();
     }
 
@@ -27,11 +27,11 @@ public class FileManagment {
      *
      * @param creation_path      The path to create the file.
      * @param file_name The name to name the file.
-     * @param extension The extension of the file.
+     * @param file_extension The extension of the file.
      * @return True if successful; false otherwise.
      */
-    public static boolean createFile(String creation_path, String file_name, String extension) {
-        final File file = new File(creation_path, file_name + extension);
+    public static boolean createFile(String creation_path, String file_name, String file_extension) {
+        final File file = new File(creation_path, file_name + file_extension);
         try {
             return file.createNewFile();
         } catch (IOException e) {

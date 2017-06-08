@@ -66,5 +66,25 @@ public class PropertyManagment {
         return false;
     }
 
+    /**
+     * Puts the specified property in the specified location.
+     *
+     * @param property_name   The property name to modified the value of.
+     * @param property_to_put The property value to put.
+     * @param file_path       The path to the file.
+     * @param file_name       The name of the file.
+     * @param file_extension  The extension of the file.
+     */
+    public static void putProperty(String property_name, String property_to_put, String file_path, String file_name, String file_extension) {
+        if (file_name == null || file_path == null || file_extension == null)
+            return;
+
+        if (!loadProperties(file_path, file_name, file_extension))
+            return;
+
+        getFileProperties().put(property_name, property_to_put);
+        getFileProperties().clear();
+    }
+
 }
 

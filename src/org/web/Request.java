@@ -20,12 +20,12 @@ public class Request {
 
     /**
      * The decimal format for the percent downloaded.
-     * */
+     */
     private static final DecimalFormat PERCENT_FORMAT = new DecimalFormat("#.#");
 
     /**
      * The percent downloaded of the current file.
-     * */
+     */
     private static double PERCENT_DOWNLOAED = -1;
 
     /**
@@ -72,9 +72,9 @@ public class Request {
      * Requests the file from the specified url and saves it to the specified path.
      * Compares the downloaded file size to the url file size to ensure it's fully downloaded.
      *
-     * @param url  The url in which to download the file.
-     * @param path The path in which to save the file.
-     * @param save_name The name of the file. (Make sure to include a seperator between the path and the same name.)
+     * @param url                    The url in which to download the file.
+     * @param path                   The path in which to save the file.
+     * @param save_name              The name of the file. (Make sure to include a seperator between the path and the same name.)
      * @param print_download_percent True if we should print the file download percent with the format "Downloaded: #.#%"; false otherwise.
      * @return True if the file was successfully downloaded, false otherwise.
      */
@@ -124,7 +124,7 @@ public class Request {
      * Gets the percent of the file downloaded.
      *
      * @return The percent of the file downloaded; -1 otherwise.
-     * */
+     */
     public static double getFilePercentDownloaded() {
         return PERCENT_DOWNLOAED;
     }
@@ -134,7 +134,7 @@ public class Request {
      *
      * @param url The url to request file size.
      * @return The size of the file in bytes.
-     * */
+     */
     public static int requestFileSize(String url) {
         try {
             final URL URL = new URL(url);
@@ -155,7 +155,7 @@ public class Request {
      *
      * @param uri The URI to open.
      * @return True if successful; false otherwise.
-     * */
+     */
     public static boolean openURL(String uri) {
         if (!Desktop.isDesktopSupported())
             return false;

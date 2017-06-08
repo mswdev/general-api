@@ -24,6 +24,11 @@ public class Request {
     private static final DecimalFormat PERCENT_FORMAT = new DecimalFormat("#.#");
 
     /**
+     * The percent downloaded of the current file.
+     * */
+    private static double PERCENT_DOWNLOAED = -1;
+
+    /**
      * Sends a post request to the specified url with the hash map.
      * Converts the data from the hash map to a byte[] before sending it.
      *
@@ -66,7 +71,6 @@ public class Request {
     /**
      * Requests the file from the specified url and saves it to the specified path.
      * Compares the downloaded file size to the url file size to ensure it's fully downloaded.
-     * If the logging debug mode is enabled, it will debug the downloaded percent of the file in a #.## format.
      *
      * @param url  The url in which to download the file.
      * @param path The path in which to save the file.
@@ -90,8 +94,7 @@ public class Request {
             final byte[] BUFFER = new byte[4096];
             while ((bytes_read = INPUT_STREAM.read(BUFFER)) != -1) {
                 total_bytes_read += bytes_read;
-                final double percent_downloaded = (total_bytes_read / file_size) * 100;
-                Logging.debug("Downloaded: " + PERCENT_FORMAT.format(percent_downloaded) + "%");
+                PERCENT_DOWNLOAED = (total_bytes_read / file_size) * 100;
                 OUTPUT_STREAM.write(BUFFER, 0, bytes_read);
             }
 
@@ -110,6 +113,15 @@ public class Request {
         }
 
         return false;
+    }
+
+    /**
+     * Gets the percent of the file downloaded.
+     *
+     * @return The percent of the file downloaded; -1 otherwise.
+     * */
+    public static double getFilePercentDownloaded() {
+        return PERCENT_DOWNLOAED;
     }
 
     /**

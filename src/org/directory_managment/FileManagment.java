@@ -13,25 +13,25 @@ public class FileManagment {
     /**
      * Creates a directory at the specified path with the specified name.
      *
-     * @param path The path to create the directory.
+     * @param creation_path The path to create the directory.
      * @param name The name to name the directory.
      * @return True if successful; false otherwise.
      */
-    public static boolean createDirectory(String path, String name) {
-        final File directory = new File(path, name);
+    public static boolean createDirectory(String creation_path, String name) {
+        final File directory = new File(creation_path, name);
         return directory.mkdir();
     }
 
     /**
      * Creates a file at the specified path with the specified name and extension.
      *
-     * @param path      The path to create the file.
+     * @param creation_path      The path to create the file.
      * @param file_name The name to name the file.
      * @param extension The extension of the file.
      * @return True if successful; false otherwise.
      */
-    public static boolean createFile(String path, String file_name, String extension) {
-        final File file = new File(path, file_name + extension);
+    public static boolean createFile(String creation_path, String file_name, String extension) {
+        final File file = new File(creation_path, file_name + extension);
         try {
             return file.createNewFile();
         } catch (IOException e) {
@@ -45,12 +45,13 @@ public class FileManagment {
      * Gets the specified file name in the specified directory.
      *
      * @param file_name The name of the file to get from the directory.
-     * @param path The directory to get the file from.
+     * @param file_path The directory to get the file from.
+     * @param file_extension The file extension.
      * @return The specified file if found; null otherwise.
      */
-    public static File getFileInDirectory(String path, String file_name) {
-        final File file = new File(path);
-        final File[] matching_files = file.listFiles((dir, name) -> name.equals(file_name));
+    public static File getFileInDirectory(String file_path, String file_name, String file_extension) {
+        final File file = new File(file_path);
+        final File[] matching_files = file.listFiles((dir, name) -> name.equals(file_name + file_extension));
         if (matching_files == null)
             return null;
 
@@ -60,11 +61,11 @@ public class FileManagment {
     /**
      * Gets all of the files in the specified directory.
      *
-     * @param path The path to get the files from.
+     * @param directory_path The path to get the files from.
      * @return A File array if any files are present; null otherwise.
      */
-    public static File[] getFilesInDirectory(String path) {
-        final File file = new File(path);
+    public static File[] getFilesInDirectory(String directory_path) {
+        final File file = new File(directory_path);
         final File[] files = file.listFiles();
         if (files == null)
             return null;
@@ -75,12 +76,12 @@ public class FileManagment {
     /**
      * Gets all of the file names in the specified directory.
      *
-     * @param path The path to get the files from.
+     * @param directory_path The path to get the files from.
      * @return A File array if any files are present; null otherwise.
      */
-    public static String[] getFileNamesInDirectory(String path) {
+    public static String[] getFileNamesInDirectory(String directory_path) {
         final List<String> file_names = new ArrayList<>();
-        final File[] files = getFilesInDirectory(path);
+        final File[] files = getFilesInDirectory(directory_path);
         if (files == null)
             return null;
 
@@ -91,7 +92,7 @@ public class FileManagment {
             file_names.add(file.getName());
         }
 
-        return file_names.stream().toArray(String[]::new);
+        return file_names.toArray(new String[0]);
     }
 
 }

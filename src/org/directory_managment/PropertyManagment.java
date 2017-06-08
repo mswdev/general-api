@@ -1,9 +1,6 @@
 package org.directory_managment;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -82,7 +79,12 @@ public class PropertyManagment {
         if (!loadProperties(file_path, file_name, file_extension))
             return;
 
-        getFileProperties().put(property_name, property_to_put);
+        getFileProperties().put(property_name, String.valueOf(property_to_put));
+        try {
+            getFileProperties().store(new FileOutputStream(file_path+file_name+file_extension), "Settings");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         getFileProperties().clear();
     }
 

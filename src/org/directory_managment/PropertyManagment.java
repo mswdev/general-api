@@ -58,6 +58,7 @@ public class PropertyManagment {
 
         try {
             file_properties.load(FILE_INPUT_STREAM);
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }

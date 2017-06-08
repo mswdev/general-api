@@ -59,6 +59,17 @@ public class FileManagment {
     }
 
     /**
+     * Gets the specified directory in the specified directory.
+     *
+     * @param file_name The name of the directory to get from the directory.
+     * @param file_path The directory to get the directory from.
+     * @return The specified directory if found; null otherwise.
+     */
+    public static File getDirectoryInDirectory(String file_path, String file_name) {
+        return getFileInDirectory(file_path, file_name, null);
+    }
+
+    /**
      * Gets all of the files in the specified directory.
      *
      * @param directory_path The path to get the files from.

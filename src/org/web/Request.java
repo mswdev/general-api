@@ -75,7 +75,7 @@ public class Request {
      * @param print_download_percent True if we should print the file download percent with the format "Downloaded: #.#%"; false otherwise.
      * @return True if the file was successfully downloaded, false otherwise.
      */
-    public static boolean requestFile(String url, String path, String save_name, boolean print_download_percent) {
+    public static boolean requestFile(String url, String path, String save_name, String file_extension, boolean print_download_percent) {
         try {
             final URL URL = new URL(url);
             final HttpURLConnection CONNECTION = (HttpURLConnection) URL.openConnection();
@@ -84,7 +84,7 @@ public class Request {
                 return false;
 
             final InputStream INPUT_STREAM = CONNECTION.getInputStream();
-            final FileOutputStream OUTPUT_STREAM = new FileOutputStream(path + File.separator + save_name);
+            final FileOutputStream OUTPUT_STREAM = new FileOutputStream(path + File.separator + save_name + file_extension);
 
             int bytes_read;
             double total_bytes_read = 0;
@@ -105,7 +105,7 @@ public class Request {
             CONNECTION.disconnect();
 
             final int FILE_SIZE = requestFileSize(url);
-            final File DOWNLOADED_FILE = FileManagment.getDirectoryInDirectory(path, save_name);
+            final File DOWNLOADED_FILE = FileManagment.getFileInDirectory(path, save_name, file_extension);
             if (DOWNLOADED_FILE == null)
                 return false;
 

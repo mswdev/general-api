@@ -95,7 +95,7 @@ public class Request {
                 PERCENT_DOWNLOAED = (total_bytes_read / file_size) * 100;
 
                 if (print_download_percent)
-                    Logging.status("Downloaded: " + PERCENT_FORMAT.format(PERCENT_DOWNLOAED) + "%");
+                    Logging.debug("Downloaded: " + PERCENT_FORMAT.format(PERCENT_DOWNLOAED) + "%");
 
                 OUTPUT_STREAM.write(BUFFER, 0, bytes_read);
             }

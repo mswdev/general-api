@@ -72,10 +72,10 @@ public class Request {
      * @param url                    The url in which to download the file.
      * @param path                   The path in which to save the file.
      * @param save_name              The name of the file. (Make sure to include a seperator between the path and the same name.)
-     * @param print_download_percent True if we should print the file download percent with the format "Downloaded: #.#%"; false otherwise.
+     * @param set_download_status True if we set the download status with the format: "Downloaded: #.#%"; false otherwise.
      * @return True if the file was successfully downloaded, false otherwise.
      */
-    public static boolean requestFile(String url, String path, String save_name, String file_extension, boolean print_download_percent) {
+    public static boolean requestFile(String url, String path, String save_name, String file_extension, boolean set_download_status) {
         try {
             final URL URL = new URL(url);
             final HttpURLConnection CONNECTION = (HttpURLConnection) URL.openConnection();
@@ -94,8 +94,8 @@ public class Request {
                 total_bytes_read += bytes_read;
                 PERCENT_DOWNLOAED = (total_bytes_read / file_size) * 100;
 
-                if (print_download_percent)
-                    Logging.debug("Downloaded: " + PERCENT_FORMAT.format(PERCENT_DOWNLOAED) + "%");
+                if (set_download_status)
+                    Logging.setDebugStatus("Downloaded: " + PERCENT_FORMAT.format(PERCENT_DOWNLOAED) + "%");
 
                 OUTPUT_STREAM.write(BUFFER, 0, bytes_read);
             }

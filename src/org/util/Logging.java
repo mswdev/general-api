@@ -88,7 +88,7 @@ public class Logging {
      * @return The current debug status.
      * */
     public static String getDebugStatus() {
-        return debug_status;
+        return "[STATUS]: " + debug_status;
     }
 
 }

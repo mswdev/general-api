@@ -89,7 +89,7 @@ public class Logging {
      * */
     public static String getDebugStatus() {
         if (debug_status == null)
-            return "[STATUS:] ";
+            return "[STATUS]: ";
 
         return "[STATUS]: " + debug_status;
     }

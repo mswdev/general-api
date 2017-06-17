@@ -17,14 +17,8 @@ public class SQLDatabase {
      * @param database_password The database password.
      * @return The database connection.
      */
-    public static Connection getDatabase(String database_url, String database_username, String database_password) {
-        try {
-            return DriverManager.getConnection("jdbc:mysql://" + database_url, database_username, database_password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+    public static Connection getDatabase(String database_url, String database_username, String database_password) throws SQLException {
+        return DriverManager.getConnection("jdbc:mysql://" + database_url, database_username, database_password);
     }
 
 }

@@ -107,7 +107,7 @@ public abstract class SQLDatabaseConnector {
      * @param database_column_data The data to search for in the column.
      * @return 1 if the update was successful; -1 otherwise.
      */
-    public satatic boolean updateInt(String database_table, String column_to_update, int value_to_set, String database_column, String database_column_data) throws SQLException {
+    public static boolean updateInt(String database_table, String column_to_update, int value_to_set, String database_column, String database_column_data) throws SQLException {
         if (DATABASE_CONNECTION == null)
             return false;
 

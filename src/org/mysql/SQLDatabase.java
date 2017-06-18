@@ -8,18 +8,6 @@ import java.sql.*;
 public class SQLDatabase {
 
     /**
-     * Gets the database connection.
-     *
-     * @param database_url      The database URL to get the connection from.
-     * @param database_username The database username.
-     * @param database_password The database password.
-     * @return The database connection.
-     */
-    public static Connection getDatabase(String database_url, String database_username, String database_password) throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://" + database_url, database_username, database_password);
-    }
-
-    /**
      * Queries the database table for the specified column.
      *
      * @param database_connection The database connection.

@@ -1,4 +1,4 @@
-package org.mysql;
+package org.web.mysql;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,10 +9,24 @@ import java.util.List;
  */
 public abstract class SQLDatabaseConnector {
 
-    protected Connection DATABASE_CONNECTION;
+    protected static Connection DATABASE_CONNECTION;
 
-    SQLDatabaseConnector(Connection database_connection) {
-        this.DATABASE_CONNECTION = database_connection;
+    /**
+     * Sets the database connection
+     *
+     * @param database_connection The database connection to set.
+     * */
+    public static void setConnection(Connection database_connection) {
+        DATABASE_CONNECTION = database_connection;
+    }
+
+    /**
+     * Gets the database connection.
+     *
+     * @return The database connection.
+     **/
+    public Connection getDatabaseConnection() {
+        return DATABASE_CONNECTION;
     }
 
     /**

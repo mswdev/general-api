@@ -30,24 +30,25 @@ public class SQLDatabase {
 
 
     /**
-     * Queries the specified data then gets the specified column data with the specified limit.
+     * Queries the specified data then gets the specified column data with the specified limit and column index.
      *
      * @param database_connection  The database connection.
      * @param database_table       The database table.
      * @param database_column      The database column.
      * @param database_column_data The data to search for in the column.
+     * @param database_column_index The column index to get.
      * @param query_limit          The limit to query for.
      *
      * @return An object list containing the queried data.
      */
-    public static List<Object> getQueriedData(Connection database_connection, String database_table, String database_column, String database_column_data, int query_limit) throws SQLException {
+    public static List<Object> getQueriedData(Connection database_connection, String database_table, String database_column, String database_column_data, int database_column_index, int query_limit) throws SQLException {
         if (database_connection == null)
             return null;
 
         final List<Object> QUERIED_DATA = new ArrayList<>();
         final ResultSet RESULT_SET = SQLDatabase.queryDatabase(database_connection, database_table, database_column, database_column_data, query_limit);
         while (RESULT_SET.next())
-            QUERIED_DATA.add(RESULT_SET.getObject(database_column));
+            QUERIED_DATA.add(RESULT_SET.getObject(database_column_index));
 
         return QUERIED_DATA;
     }

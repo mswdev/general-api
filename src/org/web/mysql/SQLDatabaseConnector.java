@@ -70,7 +70,7 @@ public abstract class SQLDatabaseConnector {
         if (DATABASE_CONNECTION == null)
             return null;
 
-        String QUERY = "SELECT * FROM " + database_table + " WHERE " + database_column + " = '?' LIMIT " + query_limit;
+        String QUERY = "SELECT * FROM " + database_table + " WHERE " + database_column + " =? LIMIT " + query_limit;
         System.out.println(QUERY);
         final PreparedStatement PREPARED_STATEMENT = DATABASE_CONNECTION.prepareStatement(QUERY);
         PREPARED_STATEMENT.setString(1, database_column_data);

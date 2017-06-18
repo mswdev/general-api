@@ -77,25 +77,45 @@ public abstract class SQLDatabaseConnector {
     }
 
     /**
-     * Queries the specified database table for the specified column data. (Protects against SQL Injection)
+     * Updates the specified database table with the specified string column data. (Protects against SQL Injection)
      *
      * @param database_table       The database table.
      * @param column_to_update     The database column to update.
      * @param value_to_set         The value to set.
      * @param database_column      The database column to target.
      * @param database_column_data The data to search for in the column.
-     * @return The ResultSet from the select; null otherwise.
+     * @return 1 if the update was successful; -1 otherwise.
      */
-    public static int update(String database_table, String column_to_update, String value_to_set, String database_column, String database_column_data) throws SQLException {
+    public boolean updateString(String database_table, String column_to_update, String value_to_set, String database_column, String database_column_data) throws SQLException {
         if (DATABASE_CONNECTION == null)
-            return -1;
+            return false;
 
         String QUERY = "UPDATE " + database_table + " SET " + column_to_update + " = ? WHERE " + database_column + " = ?";
-        System.out.println(QUERY);
         final PreparedStatement PREPARED_STATEMENT = DATABASE_CONNECTION.prepareStatement(QUERY);
         PREPARED_STATEMENT.setString(1, value_to_set);
         PREPARED_STATEMENT.setString(2, database_column_data);
-        return PREPARED_STATEMENT.executeUpdate();
+        return PREPARED_STATEMENT.executeUpdate() == 1;
+    }
+
+    /**
+     * Updates the specified database table with the specified int column data. (Protects against SQL Injection)
+     *
+     * @param database_table       The database table.
+     * @param column_to_update     The database column to update.
+     * @param value_to_set         The value to set.
+     * @param database_column      The database column to target.
+     * @param database_column_data The data to search for in the column.
+     * @return 1 if the update was successful; -1 otherwise.
+     */
+    public boolean updateInt(String database_table, String column_to_update, int value_to_set, String database_column, String database_column_data) throws SQLException {
+        if (DATABASE_CONNECTION == null)
+            return false;
+
+        String QUERY = "UPDATE " + database_table + " SET " + column_to_update + " = " + column_to_update + " + ? WHERE " + database_column + " = ?";
+        final PreparedStatement PREPARED_STATEMENT = DATABASE_CONNECTION.prepareStatement(QUERY);
+        PREPARED_STATEMENT.setString(1, String.valueOf(value_to_set));
+        PREPARED_STATEMENT.setString(2, database_column_data);
+        return PREPARED_STATEMENT.executeUpdate() == 1;
     }
 
 }

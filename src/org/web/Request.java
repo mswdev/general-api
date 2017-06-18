@@ -1,6 +1,6 @@
 package org.web;
 
-import org.directory_managment.FileManagment;
+import org.util.directory_managment.FileManagment;
 import org.util.Logging;
 
 import java.awt.*;

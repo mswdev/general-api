@@ -1,4 +1,4 @@
-package org.directory_managment;
+package org.util.directory_managment;
 
 import java.io.File;
 import java.io.IOException;

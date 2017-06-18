@@ -70,7 +70,7 @@ public abstract class SQLDatabaseConnector {
         if (DATABASE_CONNECTION == null)
             return null;
 
-        String QUERY = "SELECT * FROM " + database_table + " WHERE " + database_column + " = ? LIMIT " + query_limit;
+        final String QUERY = "SELECT * FROM " + database_table + " WHERE " + database_column + " = ? LIMIT " + query_limit;
         final PreparedStatement PREPARED_STATEMENT = DATABASE_CONNECTION.prepareStatement(QUERY);
         PREPARED_STATEMENT.setString(1, database_column_data);
         return PREPARED_STATEMENT.executeQuery();
@@ -90,7 +90,7 @@ public abstract class SQLDatabaseConnector {
         if (DATABASE_CONNECTION == null)
             return false;
 
-        String QUERY = "UPDATE " + database_table + " SET " + column_to_update + " = ? WHERE " + database_column + " = ?";
+        final String QUERY = "UPDATE " + database_table + " SET " + column_to_update + " = ? WHERE " + database_column + " = ?";
         final PreparedStatement PREPARED_STATEMENT = DATABASE_CONNECTION.prepareStatement(QUERY);
         PREPARED_STATEMENT.setString(1, value_to_set);
         PREPARED_STATEMENT.setString(2, database_column_data);
@@ -111,7 +111,7 @@ public abstract class SQLDatabaseConnector {
         if (DATABASE_CONNECTION == null)
             return false;
 
-        String QUERY = "UPDATE " + database_table + " SET " + column_to_update + " = " + column_to_update + " + ? WHERE " + database_column + " = ?";
+        final String QUERY = "UPDATE " + database_table + " SET " + column_to_update + " = " + column_to_update + " + ? WHERE " + database_column + " = ?";
         final PreparedStatement PREPARED_STATEMENT = DATABASE_CONNECTION.prepareStatement(QUERY);
         PREPARED_STATEMENT.setString(1, String.valueOf(value_to_set));
         PREPARED_STATEMENT.setString(2, database_column_data);
@@ -132,7 +132,7 @@ public abstract class SQLDatabaseConnector {
         if (DATABASE_CONNECTION == null)
             return false;
 
-        String QUERY = "UPDATE " + database_table + " SET " + column_to_update + " = " + column_to_update + " + ? WHERE " + database_column + " = ?";
+        final String QUERY = "UPDATE " + database_table + " SET " + column_to_update + " = ? WHERE " + database_column + " = ?";
         final PreparedStatement PREPARED_STATEMENT = DATABASE_CONNECTION.prepareStatement(QUERY);
         PREPARED_STATEMENT.setString(1, String.valueOf(date_to_set));
         PREPARED_STATEMENT.setString(2, database_column_data);

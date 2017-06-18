@@ -9,7 +9,7 @@ import java.util.List;
  */
 public abstract class SQLDatabaseConnector {
 
-    private static Connection DATABASE_CONNECTION;
+    protected Connection DATABASE_CONNECTION;
 
     SQLDatabaseConnector(Connection database_connection) {
         this.DATABASE_CONNECTION = database_connection;

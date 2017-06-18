@@ -1,7 +1,7 @@
 package org.web;
 
-import org.util.directory_managment.FileManagment;
 import org.util.Logging;
+import org.util.directory_managment.FileManagment;
 
 import java.awt.*;
 import java.io.*;
@@ -166,6 +166,24 @@ public class Request {
         }
 
         return false;
+    }
+
+    /**
+     * Requests the public IP of the network from the Amazon AWS check IP service.
+     *
+     * @return A string containing the public IP; null otherwise.
+     * */
+    public static String requestIP() {
+        try {
+            final URL AMAZON_AWS_CHECK_IP = new URL("http://checkip.amazonaws.com");
+            final BufferedReader BUFFERED_READER = new BufferedReader(new InputStreamReader(AMAZON_AWS_CHECK_IP.openStream()));
+            final String IP = BUFFERED_READER.readLine();
+            BUFFERED_READER.close();
+            return IP;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

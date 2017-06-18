@@ -47,7 +47,7 @@ public class SQLDatabase {
         final List<Object> QUERIED_DATA = new ArrayList<>();
         final ResultSet RESULT_SET = SQLDatabase.queryDatabase(database_connection, database_table, database_column, database_column_data, query_limit);
         while (RESULT_SET.next())
-            QUERIED_DATA.add(RESULT_SET.getObject(database_column_data));
+            QUERIED_DATA.add(RESULT_SET.getObject(database_column));
 
         return QUERIED_DATA;
     }
@@ -67,7 +67,7 @@ public class SQLDatabase {
         if (database_connection == null)
             return null;
 
-        return getQueriedData(database_connection, database_table, database_column, database_column_data, 1).toString();
+        return getQueriedData(database_connection, database_table, database_column, database_column_data, 1);
     }
 
 }

@@ -52,23 +52,5 @@ public class SQLDatabase {
         return QUERIED_DATA;
     }
 
-
-    /**
-     * Queries the specified data then gets the specified column data with a limit of 1.
-     *
-     * @param database_connection  The database connection.
-     * @param database_table       The database table.
-     * @param database_column      The database column.
-     * @param database_column_data The data to search for in the column.
-     *
-     * @return An object containing the queried data.
-     */
-    public static Object getQueriedData(Connection database_connection, String database_table, String database_column, String database_column_data) throws SQLException {
-        if (database_connection == null)
-            return null;
-
-        return getQueriedData(database_connection, database_table, database_column, database_column_data, 1);
-    }
-
 }
 

@@ -94,5 +94,14 @@ public class Logging {
         return "[STATUS]: " + debug_status;
     }
 
+    /**
+     * Checks whether the debug status is empty or not.
+     *
+     * @return True if the debug status is empty; false otherwise.
+     * */
+    public boolean isDebugStatusEmpty() {
+        return getDebugStatus().equals("[STATUS]: ");
+    }
+
 }
 

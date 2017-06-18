@@ -76,5 +76,25 @@ public abstract class SQLDatabaseConnector {
         return PREPARED_STATEMENT.executeQuery();
     }
 
+    /**
+     * Queries the specified database table for the specified column data. (Protects against SQL Injection)
+     *
+     * @param database_table       The database table.
+     * @param database_column      The database column.
+     * @param database_column_data The data to search for in the column.
+     * @return The ResultSet from the select; null otherwise.
+     */
+    public static ResultSet update(String database_table, String database_column, String database_column_data, String value_to_set) throws SQLException {
+        if (DATABASE_CONNECTION == null)
+            return null;
+
+        String QUERY = "UPDATE " + database_table + " SET " + database_column + " = ? WHERE " + database_column + " = ?";
+        System.out.println(QUERY);
+        final PreparedStatement PREPARED_STATEMENT = DATABASE_CONNECTION.prepareStatement(QUERY);
+        PREPARED_STATEMENT.setString(1, value_to_set);
+        PREPARED_STATEMENT.setString(2, database_column_data);
+        return PREPARED_STATEMENT.executeQuery();
+    }
+
 }
 

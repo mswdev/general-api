@@ -9,6 +9,9 @@ import java.util.List;
  */
 public abstract class SQLDatabaseConnector {
 
+    /**
+     * The database connection.
+     * */
     protected static Connection DATABASE_CONNECTION;
 
     /**
@@ -25,7 +28,7 @@ public abstract class SQLDatabaseConnector {
      *
      * @return The database connection.
      **/
-    public Connection getDatabaseConnection() {
+    public Connection getConnection() {
         return DATABASE_CONNECTION;
     }
 
@@ -38,7 +41,7 @@ public abstract class SQLDatabaseConnector {
      * @param query_limit          The limit to query for.
      * @return The ResultSet from the query; null otherwise.
      */
-    public static ResultSet queryDatabase(String database_table, String database_column, String database_column_data, int query_limit) throws SQLException {
+    public static ResultSet query(String database_table, String database_column, String database_column_data, int query_limit) throws SQLException {
         if (DATABASE_CONNECTION == null)
             return null;
 
@@ -59,12 +62,12 @@ public abstract class SQLDatabaseConnector {
      *
      * @return An object list containing the queried data.
      */
-    public static List<Object> getQueriedData(String database_table, String database_column, String database_column_data, int database_column_index, int query_limit) throws SQLException {
+    public static List<Object> queryData(String database_table, String database_column, String database_column_data, int database_column_index, int query_limit) throws SQLException {
         if (DATABASE_CONNECTION == null)
             return null;
 
         final List<Object> QUERIED_DATA = new ArrayList<>();
-        final ResultSet RESULT_SET = SQLDatabaseConnector.queryDatabase(database_table, database_column, database_column_data, query_limit);
+        final ResultSet RESULT_SET = SQLDatabaseConnector.query(database_table, database_column, database_column_data, query_limit);
         if (RESULT_SET == null)
             return null;
 

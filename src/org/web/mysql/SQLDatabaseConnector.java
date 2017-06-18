@@ -1,8 +1,8 @@
 package org.web.mysql;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.Date;
 
 /**
  * Created by Sphiinx on 6/17/2017.
@@ -105,7 +105,7 @@ public abstract class SQLDatabaseConnector {
      * @param value_to_set         The value to set.
      * @param database_column      The database column to target.
      * @param database_column_data The data to search for in the column.
-     * @return 1 if the update was successful; -1 otherwise.
+     * @return True if the update was successful; false otherwise.
      */
     public static boolean updateInt(String database_table, String column_to_update, int value_to_set, String database_column, String database_column_data) throws SQLException {
         if (DATABASE_CONNECTION == null)
@@ -114,6 +114,27 @@ public abstract class SQLDatabaseConnector {
         String QUERY = "UPDATE " + database_table + " SET " + column_to_update + " = " + column_to_update + " + ? WHERE " + database_column + " = ?";
         final PreparedStatement PREPARED_STATEMENT = DATABASE_CONNECTION.prepareStatement(QUERY);
         PREPARED_STATEMENT.setString(1, String.valueOf(value_to_set));
+        PREPARED_STATEMENT.setString(2, database_column_data);
+        return PREPARED_STATEMENT.executeUpdate() == 1;
+    }
+
+    /**
+     * Updates the specified database table with the specified date column data. (Protects against SQL Injection)
+     *
+     * @param database_table       The database table.
+     * @param column_to_update     The database column to update.
+     * @param date_to_set          The date to set.
+     * @param database_column      The database column to target.
+     * @param database_column_data The data to search for in the column.
+     * @return True if the update was successful; false otherwise.
+     */
+    public static boolean updateDate(String database_table, String column_to_update, Date date_to_set, String database_column, String database_column_data) throws SQLException {
+        if (DATABASE_CONNECTION == null)
+            return false;
+
+        String QUERY = "UPDATE " + database_table + " SET " + column_to_update + " = " + column_to_update + " + ? WHERE " + database_column + " = ?";
+        final PreparedStatement PREPARED_STATEMENT = DATABASE_CONNECTION.prepareStatement(QUERY);
+        PREPARED_STATEMENT.setString(1, String.valueOf(date_to_set));
         PREPARED_STATEMENT.setString(2, database_column_data);
         return PREPARED_STATEMENT.executeUpdate() == 1;
     }

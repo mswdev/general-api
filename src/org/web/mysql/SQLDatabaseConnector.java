@@ -1,7 +1,5 @@
 package org.web.mysql;
 
-import org.web.mysql.enums.QueryType;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +11,14 @@ public abstract class SQLDatabaseConnector {
 
     /**
      * The database connection.
-     * */
+     */
     protected static Connection DATABASE_CONNECTION;
 
     /**
      * Sets the database connection
      *
      * @param database_connection The database connection to set.
-     * */
+     */
     public static void setConnection(Connection database_connection) {
         DATABASE_CONNECTION = database_connection;
     }
@@ -35,53 +33,21 @@ public abstract class SQLDatabaseConnector {
     }
 
     /**
-     * Queries the specified database table for the specified column data.
-     *
-     * @param database_table       The database table.
-     * @param database_column      The database column.
-     * @param database_column_data The data to search for in the column.
-     * @param query_limit          The limit to query for.
-     * @return The ResultSet from the query; null otherwise.
-     */
-    public static ResultSet query(QueryType query_type, String database_table, String database_column, String database_column_data, int query_limit) throws SQLException {
-        if (DATABASE_CONNECTION == null)
-            return null;
-
-        String QUERY = "";
-        switch (query_type) {
-            case SELECT:
-                QUERY = "SELECT * FROM " + database_table + " WHERE " + database_column + " = '" + database_column_data + "' LIMIT " + query_limit;
-                break;
-            case INSERT:
-                QUERY = "";
-                break;
-            case UPDATE:
-                QUERY = "";
-                break;
-        }
-
-        final Statement STATEMENT = DATABASE_CONNECTION.createStatement();
-        return STATEMENT.executeQuery(QUERY);
-    }
-
-
-    /**
      * Queries the specified data then gets the specified column data with the specified limit and column index.
      *
-     * @param database_table       The database table.
-     * @param database_column      The database column.
-     * @param database_column_data The data to search for in the column.
+     * @param database_table        The database table.
+     * @param database_column       The database column.
+     * @param database_column_data  The data to search for in the column.
      * @param database_column_index The column index to get.
-     * @param query_limit          The limit to query for.
-     *
+     * @param query_limit           The limit to select for.
      * @return An object list containing the queried data.
      */
-    public static List<Object> queryData(String database_table, String database_column, String database_column_data, int database_column_index, int query_limit) throws SQLException {
+    public static List<Object> selectData(String database_table, String database_column, String database_column_data, int database_column_index, int query_limit) throws SQLException {
         if (DATABASE_CONNECTION == null)
             return null;
 
         final List<Object> QUERIED_DATA = new ArrayList<>();
-        final ResultSet RESULT_SET = SQLDatabaseConnector.query(QueryType.SELECT, database_table, database_column, database_column_data, query_limit);
+        final ResultSet RESULT_SET = SQLDatabaseConnector.select(database_table, database_column, database_column_data, query_limit);
         if (RESULT_SET == null)
             return null;
 
@@ -89,6 +55,26 @@ public abstract class SQLDatabaseConnector {
             QUERIED_DATA.add(RESULT_SET.getObject(database_column_index));
 
         return QUERIED_DATA;
+    }
+
+    /**
+     * Queries the specified database table for the specified column data. (Protects against SQL Injection)
+     *
+     * @param database_table       The database table.
+     * @param database_column      The database column.
+     * @param database_column_data The data to search for in the column.
+     * @param query_limit          The limit to select for.
+     * @return The ResultSet from the select; null otherwise.
+     */
+    public static ResultSet select(String database_table, String database_column, String database_column_data, int query_limit) throws SQLException {
+        if (DATABASE_CONNECTION == null)
+            return null;
+
+        String QUERY = "SELECT * FROM " + database_table + " WHERE " + database_column + " = '?' LIMIT " + query_limit;
+        System.out.println(QUERY);
+        final PreparedStatement PREPARED_STATEMENT = DATABASE_CONNECTION.prepareStatement(QUERY);
+        PREPARED_STATEMENT.setString(1, database_column_data);
+        return PREPARED_STATEMENT.executeQuery();
     }
 
 }

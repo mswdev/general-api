@@ -80,15 +80,17 @@ public abstract class SQLDatabaseConnector {
      * Queries the specified database table for the specified column data. (Protects against SQL Injection)
      *
      * @param database_table       The database table.
-     * @param database_column      The database column.
+     * @param column_to_update     The database column to update.
+     * @param value_to_set         The value to set.
+     * @param database_column      The database column to target.
      * @param database_column_data The data to search for in the column.
      * @return The ResultSet from the select; null otherwise.
      */
-    public static ResultSet update(String database_table, String database_column, String database_column_data, String value_to_set) throws SQLException {
+    public static ResultSet update(String database_table, String column_to_update, String value_to_set, String database_column, String database_column_data) throws SQLException {
         if (DATABASE_CONNECTION == null)
             return null;
 
-        String QUERY = "UPDATE " + database_table + " SET " + database_column + " = ? WHERE " + database_column + " = ?";
+        String QUERY = "UPDATE " + database_table + " SET " + column_to_update + " = ? WHERE " + database_column + " = ?";
         System.out.println(QUERY);
         final PreparedStatement PREPARED_STATEMENT = DATABASE_CONNECTION.prepareStatement(QUERY);
         PREPARED_STATEMENT.setString(1, value_to_set);

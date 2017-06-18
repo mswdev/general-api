@@ -99,7 +99,7 @@ public class Logging {
      *
      * @return True if the debug status is empty; false otherwise.
      * */
-    public boolean isDebugStatusEmpty() {
+    public static boolean isDebugStatusEmpty() {
         return getDebugStatus().equals("[STATUS]: ");
     }
 

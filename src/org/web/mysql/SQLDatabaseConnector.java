@@ -86,16 +86,16 @@ public abstract class SQLDatabaseConnector {
      * @param database_column_data The data to search for in the column.
      * @return The ResultSet from the select; null otherwise.
      */
-    public static ResultSet update(String database_table, String column_to_update, String value_to_set, String database_column, String database_column_data) throws SQLException {
+    public static int update(String database_table, String column_to_update, String value_to_set, String database_column, String database_column_data) throws SQLException {
         if (DATABASE_CONNECTION == null)
-            return null;
+            return -1;
 
         String QUERY = "UPDATE " + database_table + " SET " + column_to_update + " = ? WHERE " + database_column + " = ?";
         System.out.println(QUERY);
         final PreparedStatement PREPARED_STATEMENT = DATABASE_CONNECTION.prepareStatement(QUERY);
         PREPARED_STATEMENT.setString(1, value_to_set);
         PREPARED_STATEMENT.setString(2, database_column_data);
-        return PREPARED_STATEMENT.executeQuery();
+        return PREPARED_STATEMENT.executeUpdate();
     }
 
 }

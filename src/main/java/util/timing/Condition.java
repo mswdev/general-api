@@ -1,4 +1,4 @@
-package main.java.util.timing;
+package util.timing;
 
 /**
  * Created by Sphiinx on 6/15/2017.

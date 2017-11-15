@@ -1,9 +1,8 @@
-package main.java.web;
+package web;
 
 
-
-import main.java.util.Logging;
-import main.java.util.directory_managment.FileManagment;
+import util.Logging;
+import util.directory_managment.FileManagment;
 
 import java.awt.*;
 import java.io.*;

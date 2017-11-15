@@ -8,19 +8,17 @@ import java.io.*;
 import java.net.*;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Sphiinx on 3/16/17.
+ * Created by Matt on 3/16/17.
  */
 public class Request {
 
     /**
-     * The decimal format for the percent downloaded.
-     * */
+     * The decimal format for the #getFile percent download.
+     */
     private static final DecimalFormat PERCENT_FORMAT = new DecimalFormat("#.#");
 
     /**
@@ -31,7 +29,7 @@ public class Request {
      * @param hash_map The hash map containing the parameters.
      * @return True if the data was sent successfully; false otherwise.
      */
-    public static boolean sendPostRequest(String url_name, Map<String, Object> hash_map) {
+    public static boolean post(String url_name, Map<String, Object> hash_map) {
         try {
             final StringBuilder POST_DATA = new StringBuilder();
             for (Map.Entry<String, Object> param : hash_map.entrySet()) {
@@ -68,15 +66,18 @@ public class Request {
      * Compares the downloaded file size to the url file size to ensure it's fully downloaded.
      * If the logging debug mode is enabled, it will debug the downloaded percent of the file in a #.## format.
      *
-     * @param url  The url in which to download the file.
-     * @param path The path in which to save the file.
+     * @param url       The url in which to download the file.
+     * @param path      The path in which to save the file.
      * @param save_name The name of the file. (Make sure to include a seperator between the path and the same name.)
      * @return True if the file was successfully downloaded, false otherwise.
      */
-    public static boolean requestFile(String url, String path, String save_name) {
+    public static boolean getFile(String url, String path, String save_name) {
         try {
             final URL URL = new URL(url);
             final HttpURLConnection CONNECTION = (HttpURLConnection) URL.openConnection();
+            CONNECTION.setRequestMethod("GET");
+            CONNECTION.connect();
+
             final int RESPONSE = CONNECTION.getResponseCode();
             if (RESPONSE != HttpURLConnection.HTTP_OK)
                 return false;
@@ -86,7 +87,7 @@ public class Request {
 
             int bytes_read;
             double total_bytes_read = 0;
-            final int file_size = requestFileSize(url);
+            final int file_size = getFileSize(url);
             final byte[] BUFFER = new byte[4096];
             while ((bytes_read = INPUT_STREAM.read(BUFFER)) != -1) {
                 total_bytes_read += bytes_read;
@@ -99,7 +100,7 @@ public class Request {
             INPUT_STREAM.close();
             CONNECTION.disconnect();
 
-            final int FILE_SIZE = requestFileSize(url);
+            final int FILE_SIZE = getFileSize(url);
             final File DOWNLOADED_FILE = FileManagment.getFileInDirectory(path, save_name);
             if (DOWNLOADED_FILE == null)
                 return false;
@@ -117,11 +118,13 @@ public class Request {
      *
      * @param url The url to request file size.
      * @return The size of the file in bytes.
-     * */
-    public static int requestFileSize(String url) {
+     */
+    public static int getFileSize(String url) {
         try {
             final URL URL = new URL(url);
             final HttpURLConnection CONNECTION = (HttpURLConnection) URL.openConnection();
+            CONNECTION.setRequestMethod("GET");
+
             final int RESPONSE = CONNECTION.getResponseCode();
             if (RESPONSE != HttpURLConnection.HTTP_OK)
                 return -1;
@@ -136,22 +139,59 @@ public class Request {
     /**
      * Opens the specified URI.
      *
-     * @param uri The URI to open.
+     * @param url The URL to open.
      * @return True if successful; false otherwise.
-     * */
-    public static boolean openURL(String uri) {
+     */
+    public static boolean openURL(String url) {
         if (!Desktop.isDesktopSupported())
             return false;
 
-        final Desktop desktop = Desktop.getDesktop();
+        final Desktop DESKTOP = Desktop.getDesktop();
         try {
-            desktop.browse(new URI(uri));
+            DESKTOP.browse(URI.create(url));
+
             return true;
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return false;
+    }
+
+    /**
+     * Gets the status code of the specified URL.
+     *
+     * @param url The URL to get the status code.
+     * @param timeout The connection timeout in milliseconds.
+     * @return The status code; -1 otherwise.
+     * */
+    public static int getStatusCode(String url, int timeout) {
+        url = url.replaceFirst("^https", "http");
+
+        try {
+            final URL URL = new URL(url);
+            final HttpURLConnection CONNECTION = (HttpURLConnection) URL.openConnection();
+            CONNECTION.setRequestMethod("GET");
+            CONNECTION.setConnectTimeout(timeout);
+
+            return CONNECTION.getResponseCode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
+
+    /**
+     * Checks whether the specified url is accessible or not.
+     *
+     * @param url The URL to check.
+     * @param timeout The connection timeout in milliseconds.
+     * @return True whether the site is accessible; false otherwise.
+     * */
+    public static boolean isAccessible(String url, int timeout) {
+        final int STATUS_CODE = getStatusCode(url, timeout);
+        return STATUS_CODE >= 200 && STATUS_CODE <= 399;
     }
 
 }

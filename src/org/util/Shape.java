@@ -1,4 +1,4 @@
-package org;
+package org.util;
 
 import org.util.Random;
 

@@ -6,6 +6,11 @@ package org.util;
 public class Logging {
 
     /**
+     * The master string that holds the debug status.
+     * */
+    private static String debug_status;
+
+    /**
      * The master boolean controlling the debug mode.
      */
     private static boolean is_debug;
@@ -66,6 +71,36 @@ public class Logging {
      */
     public static boolean isDebug() {
         return is_debug;
+    }
+
+    /**
+     * Gets the current debug status.
+     *
+     * @param status_to_set The status to set.
+     * */
+    public static void setDebugStatus(String status_to_set) {
+        debug_status = status_to_set;
+    }
+
+    /**
+     * Gets the current debug status.
+     *
+     * @return The current debug status.
+     * */
+    public static String getDebugStatus() {
+        if (debug_status == null)
+            return "[STATUS]: ";
+
+        return "[STATUS]: " + debug_status;
+    }
+
+    /**
+     * Checks whether the debug status is empty or not.
+     *
+     * @return True if the debug status is empty; false otherwise.
+     * */
+    public static boolean isDebugStatusEmpty() {
+        return getDebugStatus().equals("[STATUS]: ");
     }
 
 }

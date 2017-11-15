@@ -1,14 +1,13 @@
 package org.web;
 
-import org.filemanagment.FileManagment;
 import org.util.Logging;
+import org.util.directory_managment.FileManagment;
 
 import java.awt.*;
 import java.io.*;
 import java.net.*;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,7 +16,11 @@ import java.util.Map;
 public class Request {
 
     /**
+<<<<<<< HEAD
      * The decimal format for the #getFile percent download.
+=======
+     * The decimal format for the percent downloaded.
+>>>>>>> fe08c512ea1a3db18de9f4af6b138f835514d362
      */
     private static final DecimalFormat PERCENT_FORMAT = new DecimalFormat("#.#");
 
@@ -109,7 +112,7 @@ public class Request {
             CONNECTION.disconnect();
 
             final int FILE_SIZE = getFileSize(url);
-            final File DOWNLOADED_FILE = FileManagment.getFileInDirectory(path, save_name + file_extension);
+            final File DOWNLOADED_FILE = FileManagment.getFileInDirectory(path, save_name, file_extension);
             if (DOWNLOADED_FILE == null)
                 return false;
 
@@ -119,6 +122,15 @@ public class Request {
         }
 
         return false;
+    }
+
+    /**
+     * Gets the percent of the file downloaded.
+     *
+     * @return The percent of the file downloaded; -1 otherwise.
+     */
+    public static double getFilePercentDownloaded() {
+        return PERCENT_DOWNLOAED;
     }
 
     /**
@@ -167,6 +179,7 @@ public class Request {
     }
 
     /**
+<<<<<<< HEAD
      * Gets the status code of the specified URL.
      *
      * @param url The URL to get the status code.
@@ -200,6 +213,24 @@ public class Request {
     public static boolean isAccessible(String url, int timeout) {
         final int STATUS_CODE = getStatusCode(url, timeout);
         return STATUS_CODE >= 200 && STATUS_CODE <= 399;
+    }
+
+    /**
+     * Requests the public IP of the network from the Amazon AWS check IP service.
+     *
+     * @return A string containing the public IP; null otherwise.
+     * */
+    public static String requestIP() {
+        try {
+            final URL AMAZON_AWS_CHECK_IP = new URL("http://checkip.amazonaws.com");
+            final BufferedReader BUFFERED_READER = new BufferedReader(new InputStreamReader(AMAZON_AWS_CHECK_IP.openStream()));
+            final String IP = BUFFERED_READER.readLine();
+            BUFFERED_READER.close();
+            return IP;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

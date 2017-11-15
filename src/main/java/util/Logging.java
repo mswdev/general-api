@@ -1,4 +1,4 @@
-package org.util;
+package main.java.util;
 
 /**
  * Created by Sphiinx on 3/24/17.

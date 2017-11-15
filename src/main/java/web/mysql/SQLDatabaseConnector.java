@@ -1,4 +1,4 @@
-package org.web.mysql;
+package main.java.web.mysql;
 
 import java.sql.*;
 import java.util.*;

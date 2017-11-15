@@ -1,6 +1,4 @@
-package org.util;
-
-import org.util.Random;
+package main.java.util;
 
 import java.awt.*;
 

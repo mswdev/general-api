@@ -1,4 +1,4 @@
-package org.util.security;
+package main.java.util.security;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;

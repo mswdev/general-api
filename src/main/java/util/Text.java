@@ -1,4 +1,4 @@
-package org.util;
+package main.java.util;
 
 import java.awt.*;
 

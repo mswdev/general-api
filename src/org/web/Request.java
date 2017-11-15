@@ -22,6 +22,11 @@ public class Request {
     private static final DecimalFormat PERCENT_FORMAT = new DecimalFormat("#.#");
 
     /**
+     * The percent downloaded of the current file.
+     */
+    private static double PERCENT_DOWNLOAED = -1;
+
+    /**
      * Sends a post request to the specified url with the hash map.
      * Converts the data from the hash map to a byte[] before sending it.
      *
@@ -64,14 +69,14 @@ public class Request {
     /**
      * Requests the file from the specified url and saves it to the specified path.
      * Compares the downloaded file size to the url file size to ensure it's fully downloaded.
-     * If the logging debug mode is enabled, it will debug the downloaded percent of the file in a #.## format.
      *
-     * @param url       The url in which to download the file.
-     * @param path      The path in which to save the file.
-     * @param save_name The name of the file. (Make sure to include a seperator between the path and the same name.)
+     * @param url                 The url in which to download the file.
+     * @param path                The path in which to save the file.
+     * @param save_name           The name of the file. (Make sure to include a seperator between the path and the same name.)
+     * @param set_download_status True if we set the download status with the format: "Downloaded: #.#%"; false otherwise.
      * @return True if the file was successfully downloaded, false otherwise.
      */
-    public static boolean getFile(String url, String path, String save_name) {
+    public static boolean getFile(String url, String path, String save_name, String file_extension, boolean set_download_status) {
         try {
             final URL URL = new URL(url);
             final HttpURLConnection CONNECTION = (HttpURLConnection) URL.openConnection();
@@ -83,7 +88,7 @@ public class Request {
                 return false;
 
             final InputStream INPUT_STREAM = CONNECTION.getInputStream();
-            final FileOutputStream OUTPUT_STREAM = new FileOutputStream(path + File.separator + save_name);
+            final FileOutputStream OUTPUT_STREAM = new FileOutputStream(path + File.separator + save_name + file_extension);
 
             int bytes_read;
             double total_bytes_read = 0;
@@ -91,8 +96,11 @@ public class Request {
             final byte[] BUFFER = new byte[4096];
             while ((bytes_read = INPUT_STREAM.read(BUFFER)) != -1) {
                 total_bytes_read += bytes_read;
-                final double percent_downloaded = (total_bytes_read / file_size) * 100;
-                Logging.debug("Downloaded: " + PERCENT_FORMAT.format(percent_downloaded) + "%");
+                PERCENT_DOWNLOAED = (total_bytes_read / file_size) * 100;
+
+                if (set_download_status)
+                    Logging.status("Downloaded: " + PERCENT_FORMAT.format(PERCENT_DOWNLOAED) + "%");
+
                 OUTPUT_STREAM.write(BUFFER, 0, bytes_read);
             }
 
@@ -101,7 +109,7 @@ public class Request {
             CONNECTION.disconnect();
 
             final int FILE_SIZE = getFileSize(url);
-            final File DOWNLOADED_FILE = FileManagment.getFileInDirectory(path, save_name);
+            final File DOWNLOADED_FILE = FileManagment.getFileInDirectory(path, save_name + file_extension);
             if (DOWNLOADED_FILE == null)
                 return false;
 
@@ -195,4 +203,3 @@ public class Request {
     }
 
 }
-

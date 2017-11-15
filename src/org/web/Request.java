@@ -16,11 +16,7 @@ import java.util.Map;
 public class Request {
 
     /**
-<<<<<<< HEAD
      * The decimal format for the #getFile percent download.
-=======
-     * The decimal format for the percent downloaded.
->>>>>>> fe08c512ea1a3db18de9f4af6b138f835514d362
      */
     private static final DecimalFormat PERCENT_FORMAT = new DecimalFormat("#.#");
 
@@ -179,13 +175,13 @@ public class Request {
     }
 
     /**
-<<<<<<< HEAD
+     * <<<<<<< HEAD
      * Gets the status code of the specified URL.
      *
-     * @param url The URL to get the status code.
+     * @param url     The URL to get the status code.
      * @param timeout The connection timeout in milliseconds.
      * @return The status code; -1 otherwise.
-     * */
+     */
     public static int getStatusCode(String url, int timeout) {
         url = url.replaceFirst("^https", "http");
 
@@ -206,10 +202,10 @@ public class Request {
     /**
      * Checks whether the specified url is accessible or not.
      *
-     * @param url The URL to check.
+     * @param url     The URL to check.
      * @param timeout The connection timeout in milliseconds.
      * @return True whether the site is accessible; false otherwise.
-     * */
+     */
     public static boolean isAccessible(String url, int timeout) {
         final int STATUS_CODE = getStatusCode(url, timeout);
         return STATUS_CODE >= 200 && STATUS_CODE <= 399;
@@ -219,7 +215,7 @@ public class Request {
      * Requests the public IP of the network from the Amazon AWS check IP service.
      *
      * @return A string containing the public IP; null otherwise.
-     * */
+     */
     public static String requestIP() {
         try {
             final URL AMAZON_AWS_CHECK_IP = new URL("http://checkip.amazonaws.com");

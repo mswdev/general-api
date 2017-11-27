@@ -1,4 +1,4 @@
-package util;
+package main.util;
 
 /**
  * Created by Sphiinx on 3/24/17.

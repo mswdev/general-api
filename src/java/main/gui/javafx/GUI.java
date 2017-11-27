@@ -1,4 +1,4 @@
-package gui.javafx;
+package main.gui.javafx;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -9,8 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
-import util.Logging;
-import util.timing.Timing;
+import main.util.Logging;
+import main.util.timing.Timing;
 
 import javax.swing.*;
 import java.net.URL;

@@ -1,4 +1,4 @@
-package util.directory_managment;
+package main.util.directory_managment;
 
 import java.io.*;
 import java.util.Properties;

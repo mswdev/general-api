@@ -1,9 +1,4 @@
-# Created by .ignore support plugin (hsz.mobi)
 /.idea
-.idea/workspace.xml
-src/test/
-src/main/main.iml
-
-src/main/general-api.iml
-src/main/general-api_main.iml
-src/main/resources/
+/.out
+general-api.iml
+main.iml

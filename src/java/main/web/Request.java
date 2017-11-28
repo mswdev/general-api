@@ -98,7 +98,7 @@ public class Request {
                 PERCENT_DOWNLOAED = (total_bytes_read / file_size) * 100;
 
                 if (set_download_status)
-                    Logging.status("Downloaded: " + PERCENT_FORMAT.format(PERCENT_DOWNLOAED) + "%");
+                    Logging.setDebugStatus("Downloaded: " + PERCENT_FORMAT.format(PERCENT_DOWNLOAED) + "%");
 
                 OUTPUT_STREAM.write(BUFFER, 0, bytes_read);
             }
@@ -216,7 +216,7 @@ public class Request {
      *
      * @return A string containing the public IP; null otherwise.
      */
-    public static String requestIP() {
+    public static String getIP() {
         try {
             final URL AMAZON_AWS_CHECK_IP = new URL("http://checkip.amazonaws.com");
             final BufferedReader BUFFERED_READER = new BufferedReader(new InputStreamReader(AMAZON_AWS_CHECK_IP.openStream()));

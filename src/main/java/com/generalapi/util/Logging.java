@@ -1,4 +1,4 @@
-package main.util;
+package com.generalapi.util;
 
 /**
  * Created by Sphiinx on 3/24/17.

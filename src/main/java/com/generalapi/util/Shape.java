@@ -1,4 +1,4 @@
-package main.util;
+package com.generalapi.util;
 
 import java.awt.*;
 
@@ -17,8 +17,8 @@ public class Shape {
         if (r == null)
             return null;
 
-        final int randomX = Random.getRandomInt(r.x, r.x + r.width);
-        final int randomY = Random.getRandomInt(r.y, r.y + r.height);
+        final int randomX = com.generalapi.util.Random.getRandomInt(r.x, r.x + r.width);
+        final int randomY = com.generalapi.util.Random.getRandomInt(r.y, r.y + r.height);
 
         return new Point(randomX, randomY);
     }

@@ -1,4 +1,29 @@
-/.idea
-/out
-general-api.iml
-main.iml
+# Java project .gitignore
+
+# Intellij
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Compiles
+*.class
+
+# Mac
+*.DS_Store
+
+# Package Files
+*.jar
+*.zip
+*.rar
+
+# Logs
+*.log
+
+# JVM crash
+hs_err_pid*

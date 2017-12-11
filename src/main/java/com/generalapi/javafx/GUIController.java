@@ -1,4 +1,4 @@
-package main.gui.javafx;
+package com.generalapi.javafx;
 
 /**
  * Created by Sphiinx on 6/15/2017.

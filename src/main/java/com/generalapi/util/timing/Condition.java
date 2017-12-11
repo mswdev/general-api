@@ -1,4 +1,4 @@
-package main.util.timing;
+package com.generalapi.util.timing;
 
 /**
  * Created by Sphiinx on 6/15/2017.
